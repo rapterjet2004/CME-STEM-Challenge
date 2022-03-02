@@ -8,6 +8,9 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from btmain import Btmain as bt
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
+NavigationToolbar2Tk)
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -19,7 +22,6 @@ def relative_to_assets(path: str) -> Path:
 
 
 window = Tk()
-
 window.geometry("1000x700")
 window.configure(bg = "#373737")
 
@@ -40,8 +42,8 @@ main_canvas.create_rectangle(
     15.0,
     13.0,
     985.0,
-    493.0,
-    fill="#484848",
+    412.0,
+    fill="#FFFFFF",
     outline="")
 
 # bitmain canvas
@@ -63,20 +65,20 @@ main_canvas.create_rectangle(
     504.0,
     985.0,
     604.0,
-    fill="#484848",
+    fill="#FFFFFF",
     outline="")
 
 # pytrends canvas
 pytrends_canvas = Canvas(
     main_canvas,
     bg = "#FFFFFF",
-    height = 100,
+    height = 150,
     width = 970,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
 )
-pytrends_canvas.place(x=15, y=504)
+pytrends_canvas.place(x=15, y=430)
 
 # text layout holder
 main_canvas.create_rectangle(
@@ -123,7 +125,16 @@ main_canvas.create_text(
     font=("Roboto", 24 * -1)
 )
 
+def plot_btmain():
+    b = bt()
+    fig = b.get_plot()
+    fig.set_size_inches(13, 5)
+    fig.set_dpi(74.5)
+    graph = FigureCanvasTkAgg(fig, master = btmain_canvas) 
+    graph.draw()
+    graph.get_tk_widget().pack()
 
+plot_btmain()
 
 window.resizable(False, False)
 window.mainloop()
