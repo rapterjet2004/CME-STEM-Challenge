@@ -28,7 +28,7 @@ window.configure(bg = "#373737")
 
 main_canvas = Canvas(
     window,
-    bg = "#373737",
+    bg = "#e6e6e6",
     height = 700,
     width = 1000,
     bd = 0,
@@ -86,7 +86,7 @@ main_canvas.create_rectangle(
     611.0,
     986.0,
     689.0,
-    fill="#c4c4c4",
+    fill="#abc8e0",
     outline="")
 
 main_canvas.create_text(
