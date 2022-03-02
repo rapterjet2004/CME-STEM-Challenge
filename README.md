@@ -8,4 +8,4 @@ We are a group of high school students hailing from the city of Chicago. We are 
 from Julius, Edward, Henry, Isaiah, Jett, Sarah, Miakoda, Michael
 
 <h2> Collaboration Instructions </h2>
-pending
+<a href="https://docs.google.com/document/d/1Z5aOgrz6govOdr-6FP3YVO_AdIh960dYX1rqxPL0EbY/edit?usp=sharing">CME STEM Challenge Collaboration Set up Guide</a>
