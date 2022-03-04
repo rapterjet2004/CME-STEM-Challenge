@@ -152,7 +152,7 @@ def plot_pytrends():
     fig.set_dpi(74.5)
     fig.add_subplot(111, title=f"Bitcoin: Interest Over Time").plot(x, y)
         
-    canvas = FigureCanvasTkAgg(fig, master=btmain_canvas)
+    canvas = FigureCanvasTkAgg(fig, master=pytrends_canvas)
     canvas.draw()
     canvas.get_tk_widget().pack()
 
