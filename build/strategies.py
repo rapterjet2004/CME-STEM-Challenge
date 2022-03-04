@@ -5,24 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-"""
-class PrintClose(bt.Strategy):
-    # Moving average parameters
-    params = (('pfast',20),('pslow',50),)   
-
-    def __init__(self):
-        #Keep a reference to the "close" line in the data[0] dataseries
-        self.dataclose = self.datas[0].close
-
-    def log(self, txt, dt=None):
-        dt = dt or self.datas[0].datetime.date(0) 
-        print(self.datas[0].datetime.date(0), txt, self.dataclose[0])
-
-    def next(self):
-        self.log('Close:', self.dataclose[0])
-"""
-
-class PrintClose(bt.Strategy): 
+class FirstStrategy(bt.Strategy): 
     # Moving average parameters
     params = (('pfast',50),('pslow',200),)
 
