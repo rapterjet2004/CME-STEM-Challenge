@@ -102,7 +102,7 @@ main_canvas.create_text(
 
 main_canvas.create_text(
     22.0,
-    643.0,
+    651.0,
     anchor="nw",
     text="Ending portfolio value:",
     fill="#000000",
@@ -120,7 +120,7 @@ main_canvas.create_text(
 
 main_canvas.create_text(
     292.0,
-    643.0,
+    651.0,
     anchor="nw",
     text="Placeholder",
     fill="#000000",
@@ -148,8 +148,8 @@ def plot_pytrends():
     x = range(0, y.size)
         
     fig = Figure()
-    fig.set_size_inches(13, 5)
-    fig.set_dpi(74.5)
+    fig.set_size_inches(13, 2)
+    fig.set_dpi(74.6)
     fig.add_subplot(111, title=f"Bitcoin: Interest Over Time").plot(x, y)
         
     canvas = FigureCanvasTkAgg(fig, master=pytrends_canvas)
