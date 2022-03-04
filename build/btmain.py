@@ -40,7 +40,7 @@ class Btmain:
         self.cerebro.adddata(data)
 
         #Add strategy to Cerebro
-        self.cerebro.addstrategy(PrintClose)
+        self.cerebro.addstrategy(FirstStrategy)
 
         self.cerebro.addsizer(bt.sizers.SizerFix, stake=3)
 
