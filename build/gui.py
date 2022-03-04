@@ -9,6 +9,8 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from btmain import Btmain as bt
+from pytmain import Pytmain as pyt
+from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
 NavigationToolbar2Tk)
 
@@ -133,7 +135,29 @@ def plot_btmain():
     graph = FigureCanvasTkAgg(fig, master = btmain_canvas) 
     graph.draw()
     graph.get_tk_widget().pack()
+    pass
 
+def plot_pytrends():
+    p = pyt()
+    
+    data = p.get_data("bitcoin")
+    
+    y = data["bitcoin"].values
+    
+    # TODO: add actual dates instead of 0-whatever
+    x = range(0, y.size)
+        
+    fig = Figure()
+    fig.set_size_inches(13, 5)
+    fig.set_dpi(74.5)
+    fig.add_subplot(111, title=f"Bitcoin: Interest Over Time").plot(x, y)
+        
+    canvas = FigureCanvasTkAgg(fig, master=btmain_canvas)
+    canvas.draw()
+    canvas.get_tk_widget().pack()
+
+# Pytrends has to be called first otherwise it doesn't plot for some reason
+plot_pytrends()
 plot_btmain()
 
 window.resizable(False, False)
