@@ -1,5 +1,5 @@
 <h1> CME STEM CHALLENGE </h1>
-<img width="499" alt="image" src="https://user-images.githubusercontent.com/69230048/156804231-8012edea-2625-435d-b972-08355114f491.png">
+<img width="506" alt="image" src="https://user-images.githubusercontent.com/69230048/156891576-b3bee727-3134-47a7-8660-f96d9b8de5d2.png">
 <h2> Introduction</h2>
 Hi, 
 
