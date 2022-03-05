@@ -27,6 +27,7 @@ window = Tk()
 window.geometry("1000x700")
 window.configure(bg = "#373737")
 
+b = bt()
 
 main_canvas = Canvas(
     window,
@@ -113,29 +114,18 @@ main_canvas.create_text(
     292.0,
     611.0,
     anchor="nw",
-    text="Placeholder",
-    fill="#000000",
-    font=("Roboto", 24 * -1)
-)
-
-main_canvas.create_text(
-    292.0,
-    651.0,
-    anchor="nw",
-    text="Placeholder",
+    text=b.get_starting_value(),
     fill="#000000",
     font=("Roboto", 24 * -1)
 )
 
 def plot_btmain():
-    b = bt()
     fig = b.get_plot()
     fig.set_size_inches(13, 5)
     fig.set_dpi(74.5)
     graph = FigureCanvasTkAgg(fig, master = btmain_canvas) 
     graph.draw()
     graph.get_tk_widget().pack()
-    pass
 
 def plot_pytrends():
     p = pyt()
@@ -156,9 +146,20 @@ def plot_pytrends():
     canvas.draw()
     canvas.get_tk_widget().pack()
 
+
 # Pytrends has to be called first otherwise it doesn't plot for some reason
+
 plot_pytrends()
 plot_btmain()
+
+main_canvas.create_text(
+    292.0,
+    651.0,
+    anchor="nw",
+    text=b.get_ending_value(),
+    fill="#000000",
+    font=("Roboto", 24 * -1)
+)
 
 window.resizable(False, False)
 window.mainloop()

@@ -45,18 +45,22 @@ class Btmain:
         self.cerebro.addsizer(bt.sizers.SizerFix, stake=3)
 
     def get_plot(self):
-        # Run Cerebro Engine
-        start_portfolio_value = self.cerebro.broker.getvalue()
-
         self.cerebro.run(runonce=False)
-        #print('matplotlib: {}'. format(matplotlib. __version__))
-        
-        end_portfolio_value = self.cerebro.broker.getvalue()
-        pnl = end_portfolio_value - start_portfolio_value
-        print(f'Starting Portfolio Value: {start_portfolio_value:2f}')
-        print(f'Final Portfolio Value: {end_portfolio_value:2f}')
-        print(f'PnL: {pnl:.2f}')
-
+        #pnl = end_portfolio_value - start_portfolio_value
         fig = self.cerebro.plot(iplot=False)
 
         return fig[0][0]
+    
+    def get_starting_value(self):
+        start_portfolio_value = self.cerebro.broker.getvalue()
+        return start_portfolio_value
+
+    def get_ending_value(self):
+        end_portfolio_value = self.cerebro.broker.getvalue()
+        return round(end_portfolio_value, 2)
+    
+    def get_pnl(self):
+        pnl = self.get_ending_value() - self.get_starting_value()
+        return pnl
+
+
