@@ -34,7 +34,7 @@ def plot_pytrends():
     y = data["bitcoin"].values
     
     # TODO: add actual dates instead of 0-whatever
-    x = range(0, y.size)
+    x = data.index
         
     fig = Figure()
     fig.set_size_inches(13, 2)
