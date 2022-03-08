@@ -6,6 +6,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 NavigationToolbar2Tk)
 
 
+
 def plot_btmain():
     """
     Embeds the Backtrader plot from btmain into the tKinter window. Master canvas
