@@ -1,3 +1,4 @@
+from pathlib import Path
 import backtrader as bt
 import datetime
 import pandas as pd
@@ -10,6 +11,21 @@ import matplotlib.pyplot as plt
 import matplotlib.dates
 from strategies import *
 
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+
+def relative_to_assets(path: str) -> Path:
+    """
+    Creates a file path that leads to the specified file name in the assets folder.
+
+    Arguments:
+        path {str} -- filename in assets
+
+    Returns:
+        Path -- the file path for the file in assets
+    """
+    return ASSETS_PATH / Path(path)
+
 class Btmain:
     def __init__(self) -> None:
         #Instantiate Cerebro engine
@@ -17,7 +33,7 @@ class Btmain:
 
         #Gets data feed from CSV 
         data = bt.feeds.GenericCSVData(
-            dataname=r'C:\Users\juliu\PythonProjects\BTC_3.csv',
+            dataname=relative_to_assets('BTC_3.csv'),
             fromdate=datetime.datetime(2018, 1, 1),
             todate=datetime.datetime(2022, 1, 1),
             nullvalue=0.0,

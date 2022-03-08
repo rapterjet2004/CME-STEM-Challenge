@@ -10,10 +10,30 @@ class FirstStrategy(bt.Strategy):
     params = (('pfast',50),('pslow',200),)
 
     def log(self, txt, dt=None):
+        """
+        Logs the given text to the console, along with the current date.
+        Example: 
+        input
+        >>> log(f'SELL CREATE {self.dataclose[0]:2f}')
+
+        output
+        >>> 2021-05-07 SELL CREATE 6146.000000
+
+        Arguments:
+            txt {_str_} -- The text that is printed to the console
+
+        Keyword Arguments:
+            dt {_datetime_} -- The current datetime of the log  (default: {None})
+        """
         dt = dt or self.datas[0].datetime.date(0)
         print(f'{dt.isoformat()} {txt}') # Comment this line when running optimization
 
     def __init__(self):
+        """
+        Instantiates the indicators used in the strategy, along with the order variable and the 
+        date time array.
+
+        """
         self.dataclose = self.datas[0].close
         
 		# Order variable will contain ongoing order details/status
@@ -26,6 +46,12 @@ class FirstStrategy(bt.Strategy):
                         period=self.params.pfast)
     
     def next(self):
+        """
+        For every bar in the csv, runs the moving average strategy and creates a buy, sell, or close order
+        when needed. If 50 day moving average is above 200 day moving average, buy order is created. If opposite
+        then sell order is created. 
+
+        """
         # Check for open orders
         if self.order:
             return
@@ -51,6 +77,13 @@ class FirstStrategy(bt.Strategy):
                 self.order = self.close()
 
     def notify_order(self, order):
+        """
+        Checks if an order is completed, before logging it to the console. Can 
+        reject the order if the money is not enough. Resets order the end.
+
+        Arguments:
+            order {Order} -- current buy/sell/close order 
+        """
         if order.status in [order.Submitted, order.Accepted]:
             # An active Buy/Sell order has been submitted/accepted - Nothing to do
             return
