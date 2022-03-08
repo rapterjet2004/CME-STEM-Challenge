@@ -1,26 +1,9 @@
-from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from btmain import Btmain as bt
 from pytmain import Pytmain as pyt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
 NavigationToolbar2Tk)
-
-
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-
-def relative_to_assets(path: str) -> Path:
-    """
-    Creates a file path that leads to the specified file name in the assets folder.
-
-    Arguments:
-        path {str} -- filename in assets
-
-    Returns:
-        Path -- the file path for the file in assets
-    """
-    return ASSETS_PATH / Path(path)
 
 
 def plot_btmain():
