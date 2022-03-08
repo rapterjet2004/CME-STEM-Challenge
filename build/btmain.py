@@ -45,6 +45,7 @@ class Btmain:
         self.cerebro.addsizer(bt.sizers.SizerFix, stake=3)
 
     def get_plot(self):
+        
         self.cerebro.run(runonce=False)
         #pnl = end_portfolio_value - start_portfolio_value
         fig = self.cerebro.plot(iplot=False)
