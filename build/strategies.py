@@ -66,8 +66,13 @@ class FirstStrategy(bt.Strategy):
         
         # Check if we are in the market
         if not self.position:
-            # We are not in the market, look for a signal to OPEN trades
-                
+            # We are not in the market, look for a signal to OPEN trades 
+
+            #If the Trends Volatility Indicator returns a positive, orders a sell order
+            if self.tvi[0] == 1:
+                self.log(f'SELL CREATE {self.dataclose[0]:2f}')
+                self.order = self.sell()
+            
             #If the 50 SMA is above the 200 SMA
             if self.fast_sma[0] > self.slow_sma[0] and self.fast_sma[-1] < self.slow_sma[-1]:
                 self.log(f'BUY CREATE {self.dataclose[0]:2f}')

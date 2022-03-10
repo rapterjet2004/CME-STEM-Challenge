@@ -34,7 +34,7 @@ class Btmain:
         #Gets data feed from CSV 
         btc_data = bt.feeds.GenericCSVData(
             dataname=relative_to_assets('bitcoin_usd_data.csv'),
-            fromdate=datetime.datetime(2018, 1, 1),
+            fromdate=datetime.datetime(2017, 2, 1),
             todate=datetime.datetime(2022, 1, 1),
             nullvalue=0.0,
             dtformat=('%m/%d/%Y'),
@@ -49,7 +49,7 @@ class Btmain:
 
         pytrends_data = bt.feeds.GenericCSVData(
             dataname=relative_to_assets('google_trends_data.csv'),
-            fromdate=datetime.datetime(2018, 1, 1),
+            fromdate=datetime.datetime(2017, 2, 1),
             todate=datetime.datetime(2022, 1, 1),
             nullvalue=0.0,
             dtformat=('%Y-%m-%d'),
