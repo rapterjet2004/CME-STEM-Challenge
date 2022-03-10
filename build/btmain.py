@@ -32,8 +32,8 @@ class Btmain:
         self.cerebro = bt.Cerebro()
 
         #Gets data feed from CSV 
-        data = bt.feeds.GenericCSVData(
-            dataname=relative_to_assets('BTC_3.csv'),
+        btc_data = bt.feeds.GenericCSVData(
+            dataname=relative_to_assets('bitcoin_usd_data.csv'),
             fromdate=datetime.datetime(2018, 1, 1),
             todate=datetime.datetime(2022, 1, 1),
             nullvalue=0.0,
@@ -42,19 +42,34 @@ class Btmain:
             high=3,
             low=4,
             open=2,
-            close=2,
-            volume=8,
+            close=1,
+            volume=5,
             openinterest=-1,
             timeframe=bt.TimeFrame.Days)
 
-        # data1 = bt.feeds.YahooFinanceCSVData(
-        #     dataname=r'C:\Users\juliu\PythonProjects\GME.csv',
-        #     fromdate=datetime.datetime(2018, 1, 1),
-        #     todate=datetime.datetime(2022, 1, 1),
-        # )
+        pytrends_data = bt.feeds.GenericCSVData(
+            dataname=relative_to_assets('google_trends_data.csv'),
+            fromdate=datetime.datetime(2018, 1, 1),
+            todate=datetime.datetime(2022, 1, 1),
+            nullvalue=0.0,
+            dtformat=('%Y-%m-%d'),
+            datetime=0,
+            high=-1,
+            low=-1,
+            open=-1,
+            close=5,
+            volume=-1,
+            openinterest=-1,
+            timeframe=bt.TimeFrame.Days)
+
+        #Disables plotting from showing up for this CSV
+        pytrends_data.plotinfo.plot = False
         
-        #Add CSV data to Cerebro
-        self.cerebro.adddata(data)
+        #Add bitcoin CSV data to Cerebro
+        self.cerebro.adddata(btc_data)
+
+        #Add pytrends CSV data to Cerebro
+        self.cerebro.adddata(pytrends_data)
 
         #Add strategy to Cerebro
         self.cerebro.addstrategy(FirstStrategy)

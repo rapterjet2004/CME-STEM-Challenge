@@ -6,11 +6,11 @@ class Pytmain:
         Gathers the google trends data using the pytrends api. Returns 
         a pandas dataframe
 
-        Arguments:
+         Arguments:
             keyword {_str_} -- search keyword to gather google search trends for
 
         Returns:
-            _Dataframe_ -- Pandas Dataframe to be used when plotting
+            _pd.Dataframe_ -- Pandas Dataframe to be used when plotting
         """
         pytrends = TrendReq(hl='en-US', tz=360)
         pytrends.build_payload([keyword], timeframe='2018-01-01 2022-01-01')

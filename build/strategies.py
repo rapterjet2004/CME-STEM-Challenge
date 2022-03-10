@@ -4,6 +4,7 @@ import datetime
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from indicators import *
 
 class FirstStrategy(bt.Strategy): 
     # Moving average parameters
@@ -17,7 +18,7 @@ class FirstStrategy(bt.Strategy):
         >>> log(f'SELL CREATE {self.dataclose[0]:2f}')
 
         output
-        >>> 2021-05-07 SELL CREATE 6146.000000
+        >>> 2021-05-07 SELL CREATE 6146.00
 
         Arguments:
             txt {_str_} -- The text that is printed to the console
@@ -44,6 +45,10 @@ class FirstStrategy(bt.Strategy):
                         period=self.params.pslow)
         self.fast_sma = bt.indicators.MovingAverageSimple(self.datas[0], 
                         period=self.params.pfast)
+
+        # Trends Volatility Indicator initalization, uses second data feed
+        self.tvi = TrendsVolatilityInd(self.datas[1])
+
     
     def next(self):
         """
@@ -56,6 +61,9 @@ class FirstStrategy(bt.Strategy):
         if self.order:
             return
 
+        # dummy initialization for testing, doesn't actually do anything except log if volatile or not
+        self.log(f'Volatile?: {self.tvi[0]}')
+        
         # Check if we are in the market
         if not self.position:
             # We are not in the market, look for a signal to OPEN trades
