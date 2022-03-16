@@ -87,7 +87,7 @@ class FirstStrategy(bt.Strategy):
             # We are already in the market, look for a signal to CLOSE trades
             if len(self) >= (self.bar_executed + 5):
                 self.log(f'CLOSE CREATE {self.dataclose[0]:2f}')
-                self.order = self.close()
+                #self.order = self.close() 
 
     def notify_order(self, order):
         """

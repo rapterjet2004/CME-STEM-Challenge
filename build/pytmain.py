@@ -13,6 +13,6 @@ class Pytmain:
             _pd.Dataframe_ -- Pandas Dataframe to be used when plotting
         """
         pytrends = TrendReq(hl='en-US', tz=360)
-        pytrends.build_payload([keyword], timeframe='2018-01-01 2022-01-01')
+        pytrends.build_payload([keyword], timeframe='2017-02-01 2022-01-31')
         
         return pytrends.interest_over_time()
