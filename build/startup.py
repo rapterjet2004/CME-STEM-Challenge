@@ -52,14 +52,16 @@ class App(tk.Tk):
         rb = Radiobutton(
             theme_frame,
             text="CME-STEM load from CSV (fast)",
-            command=lambda: self.set_sel(1)
+            command=lambda: self.set_sel(1),
+            value=1
             )
         rb.pack(expand=True, fill='both')
 
         rb = Radiobutton(
             theme_frame,
             text="CME-STEM load from Internet (slow)",
-            command=lambda: self.set_sel(2)
+            command=lambda: self.set_sel(2),
+            value=2
             )
         rb.pack(expand=True, fill='both')
         
