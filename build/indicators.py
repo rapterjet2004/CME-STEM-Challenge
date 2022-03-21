@@ -1,6 +1,7 @@
 import backtrader as bt
+from backtrader.indicators import MovingAverageSimple, BollingerBands
 
-class TrendsVolatilityInd(bt.Indicator):
+class TBBI(bt.Indicator):
     """
     Analyzes the google search trends csv, outputs either True if volatility detected
     or False if stable. Work in progress, but it is working
@@ -10,16 +11,26 @@ class TrendsVolatilityInd(bt.Indicator):
 
     """
 
-    lines = ('tvi',) 
+    lines = ('tbbi',) 
 
-    params = (('threshold', 50),)
+    params = (('period', 30)
+            ,('devfactor', .5),)
     
-    def next(self): 
-        # check to see if previous self.lines.tvi exists
-        if not(self.datas[0].close[-1] is None or self.datas[0].close[-1] == 0):
-               # gather the percent rate of change of the data
-            percent_change = ((self.datas[0].close[0] - self.datas[0].close[-1])/self.datas[0].close[-1]) * 100
-            if abs(percent_change) > self.params.threshold:
-                self.lines.tvi[0] = True
-            else: 
-                self.lines.tvi[0] = False
+    def __init__(self) -> None:
+        bb = BollingerBands(self.datas[0].close, period=self.params.period, devfactor=self.params.devfactor)
+        self.top = bb.lines.top
+        self.bot = bb.lines.bot
+
+    def next(self):
+        if self.datas[0].close[0] > self.top[0]:
+            self.lines.tbbi[0] = 1
+        elif self.datas[0].close[0] < self.bot[0]:
+            self.lines.tbbi[0] = -1
+        else:
+            self.lines.tbbi[0] = 0  
+
+        
+
+
+
+

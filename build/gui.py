@@ -33,7 +33,11 @@ class Gui(Tk):
     Arguments:
         Tk {tkinter} -- GUI is a Tkinter window
     """
-    def __init__(self, selection=1):
+    def __init__(self, selection=1, 
+                srt_year=2021, 
+                srt_month=7, 
+                end_year=2022,
+                end_month=1):
         super().__init__()
         self.title('CME-STEM Challenge')
         self.geometry("1000x680")
@@ -43,7 +47,7 @@ class Gui(Tk):
         if selection == 1:
             self.b = Btmain()
         elif selection == 2:
-            self.b = Btmain(option=False)
+            self.b = Btmain(option=False, srt_year=srt_year, srt_month=srt_month, end_year=end_year, end_month=end_month )
         
         #root canvas for the gui
         main_canvas = Canvas(
@@ -169,6 +173,12 @@ class Gui(Tk):
         graph = FigureCanvasTkAgg(fig, master = self.btmain_canvas) 
         graph.draw()
         graph.get_tk_widget().pack()
+
+        toolbar = NavigationToolbar2Tk(graph, self.btmain_canvas)
+        toolbar.update()
+        # placing the toolbar on the Tkinter window
+        graph.get_tk_widget().pack()
+  
 
 
     def plot_pytrends(self):

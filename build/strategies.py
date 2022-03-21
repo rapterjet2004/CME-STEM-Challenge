@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 from indicators import *
 
 class FirstStrategy(bt.Strategy): 
-    # Moving average parameters
-    params = (('pfast',50),('pslow',200),)
 
     def log(self, txt, dt=None):
         """
@@ -40,16 +38,9 @@ class FirstStrategy(bt.Strategy):
 		# Order variable will contain ongoing order details/status
         self.order = None
 
-        # Instantiate moving averages so I don't have to calculate them myself
-        self.slow_sma = bt.indicators.MovingAverageSimple(self.datas[0], 
-                        period=self.params.pslow)
-        self.fast_sma = bt.indicators.MovingAverageSimple(self.datas[0], 
-                        period=self.params.pfast)
-
         # Trends Volatility Indicator initalization, uses second data feed
-        self.tvi = TrendsVolatilityInd(self.datas[1])
+        self.tbbi = TBBI(self.datas[1])
 
-    
     def next(self):
         """
         For every bar in the csv, runs the moving average strategy and creates a buy, sell, or close order
@@ -60,35 +51,25 @@ class FirstStrategy(bt.Strategy):
         # Check for open orders
         if self.order:
             return
-
-        # dummy initialization for testing, doesn't actually do anything except log if volatile or not
-        self.log(f'Volatile?: {self.tvi[0]}')
-        
-        # Check if we are in the market
         if not self.position:
-            # We are not in the market, look for a signal to OPEN trades 
-
-            #If the Trends Volatility Indicator returns a positive, orders a sell order
-            if self.tvi[0] == 1:
-                self.log(f'SELL CREATE {self.dataclose[0]:2f}')
-                self.order = self.sell()
+		# We are not in the market, look for a signal to OPEN trades
+            # dummy initialization for testing, doesn't actually do anything except log if volatile or not
+            self.log(f'Volatile?: {self.tbbi[0]}')
             
-            #If the 50 SMA is above the 200 SMA
-            if self.fast_sma[0] > self.slow_sma[0] and self.fast_sma[-1] < self.slow_sma[-1]:
+            # If the Trends Volatility Indicator returns a positive, orders a buy order
+            if self.tbbi[0] == 1:
                 self.log(f'BUY CREATE {self.dataclose[0]:2f}')
-                # Keep track of the created order to avoid a 2nd order
                 self.order = self.buy()
-            #Otherwise if the 50 SMA is below the 200 SMA   
-            elif self.fast_sma[0] < self.slow_sma[0] and self.fast_sma[-1] > self.slow_sma[-1]:
+            # if returns -1 order a sell order
+            elif self.tbbi[0] == -1:
                 self.log(f'SELL CREATE {self.dataclose[0]:2f}')
-                # Keep track of the created order to avoid a 2nd order
                 self.order = self.sell()
         else:
             # We are already in the market, look for a signal to CLOSE trades
-            if len(self) >= (self.bar_executed + 5):
+            if len(self) >= (self.bar_executed + 10):
                 self.log(f'CLOSE CREATE {self.dataclose[0]:2f}')
-                #self.order = self.close() 
-
+                self.order = self.close()
+            
     def notify_order(self, order):
         """
         Checks if an order is completed, before logging it to the console. Can 

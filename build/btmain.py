@@ -39,7 +39,11 @@ class Btmain:
     """
     
 
-    def __init__(self, option=True) -> None:
+    def __init__(self, option=True, 
+                srt_year=2021, 
+                srt_month=7, 
+                end_year=2022,
+                end_month=1) -> None:
         #Instantiate Cerebro engine
         self.cerebro = bt.Cerebro()
 
@@ -78,7 +82,7 @@ class Btmain:
                 timeframe=bt.TimeFrame.Days)
         else:
             # Slower approach but scalable for other inputs
-            df = dailydata.get_daily_data('bitcoin', 2021, 7, 2022, 1)
+            df = dailydata.get_daily_data('bitcoin', srt_year, srt_month, end_year, end_month)
             pytrends_data = bt.feeds.PandasData(dataname=df,
                                                 open=None, 
                                                 high=None, 
