@@ -4,7 +4,8 @@ import backtrader as bt
 import datetime
 import pandas as pd
 import numpy as np
-from tkinter import * 
+from tkinter import *
+from tkinter import messagebox 
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
 NavigationToolbar2Tk)
@@ -81,15 +82,18 @@ class Btmain:
                 openinterest=-1,
                 timeframe=bt.TimeFrame.Days)
         else:
-            # Slower approach but scalable for other inputs
-            df = dailydata.get_daily_data('bitcoin', srt_year, srt_month, end_year, end_month)
-            pytrends_data = bt.feeds.PandasData(dataname=df,
-                                                open=None, 
-                                                high=None, 
-                                                low=None,  
-                                                close=4, 
-                                                volume=None, 
-                                                openinterest=None)
+            try:
+                # Slower approach but scalable for other inputs
+                df = dailydata.get_daily_data('bitcoin', srt_year, srt_month, end_year, end_month)
+                pytrends_data = bt.feeds.PandasData(dataname=df,
+                                                    open=None, 
+                                                    high=None, 
+                                                    low=None,  
+                                                    close=4, 
+                                                    volume=None, 
+                                                    openinterest=None)
+            except:
+               messagebox.showerror(message="Failed to retrieve bitcoin data. Check your internet connection and restart the app")
         
 
         #Disables plotting from showing up for this CSV
