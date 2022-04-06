@@ -1,5 +1,5 @@
 from ntpath import join
-from tkinter import HORIZONTAL, Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel, Label
+from tkinter import HORIZONTAL, Tk, Canvas, Entry, Text, Button, PhotoImage, Toplevel, Label, messagebox
 from tkinter.ttk import *
 from btmain import Btmain, Ytmain
 from pytmain import Pytmain as pyt
@@ -190,12 +190,16 @@ class Gui(Tk):
 
         p = pyt()
         
-        data = p.get_data("bitcoin")
+        x = [0]
+        y = [0]
+
+        try:
+            data = p.get_data("bitcoin")
         
-        y = data["bitcoin"].values
-        
-        # TODO: add actual dates instead of 0-whatever
-        x = data.index
+            y = data["bitcoin"].values
+            x = data.index
+        except:
+            messagebox.showerror(message="Failed to retrieve pytrends data. Check your internet connection and restart the app")
             
         fig = Figure()
         fig.set_size_inches(13, 2)
